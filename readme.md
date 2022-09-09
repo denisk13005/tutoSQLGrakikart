@@ -3,7 +3,10 @@
 ## installation de l'environnement
 
 on crée un fichier db.sqlite dans vs code
-on a télécharger les tools sur le site de sqlite : https://www.sqlite.org/2022/sqlite-tools-win32-x86-3390300.zip
+on a télécharger les tools sur le site de sqlite : 
+https://www.sqlite.org/download.html
+le lien de téléchargement pour windows :
+ https://www.sqlite.org/2022/sqlite-tools-win32-x86-3390300.zip
 on a mis les 3 éxécutables dans le mm dossier que db.sqlite
 on glisse le fichier db.sqlite sur sqlite3.exe pour ouvrit directement le shell sqlite et commencer à taper des requêtes !
 
