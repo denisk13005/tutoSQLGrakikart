@@ -20,4 +20,4 @@ le type de la collonne est important car il permettra de définir l'espace mémo
 
 ## Insertion de données dans la table recipes
 
-<p styles={{color:"blue"}}>INSERT INTO</p> recipes (title,slug,content,duration,online,createsAt) <bold>VALUES</bold> ('Poulet au curry' , 'poulet-au-curry', 'Contenu de test du poulet au curry', 50,TRUE,1662708303 )
+INSERT INTO recipes (title,slug,content,duration,online,createsAt) VALUES ('Poulet au curry' , 'poulet-au-curry', 'Contenu de test du poulet au curry', 50,TRUE,1662708303 )
