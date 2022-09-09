@@ -15,7 +15,16 @@
 -- CREATE TABLE recipes ( title VARCHAR(150) , content TEXT, slug VARCHAR(50), duration SMALLINT, online BOOLEAN, createsAt DATETIME)
 
 --insertion de données dans la table recipes
--- INSERT INTO recipes (title,slug,content,duration,online,createsAt) VALUES ('Poulet au curry' , 'poulet-au-curry', 'Contenu de test du poulet au curry', 50,TRUE,1662708303 )
+-- INSERT INTO recipes (title,slug,content,duration,online,createsAt) VALUES ('Soupe2' , 'soupe2', 'Contenu de test', 10,TRUE,1662708303 )
 
 --Récupération de données 
-https://youtu.be/YgyB6ZRbX9w?list=PLjwdMgw5TTLXXpRlzDZq7d8iS6YXgnslt&t=313
+--récupère toutes les données de la table recipes
+--  SELECT * FROM recipes
+
+ -- récupère les valeurs de la table recipes demandées dans la requête
+--  SELECT content,duration FROM recipes
+
+-- récupère les valeur avec une condition grâce à WHERE
+  -- SELECT * FROM recipes WHERE slug IN ('poulet')
+  SELECT * FROM recipes WHERE slug IN ('soupe') OR duration = 30
+

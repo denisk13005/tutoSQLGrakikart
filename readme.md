@@ -21,3 +21,26 @@ le type de la collonne est important car il permettra de définir l'espace mémo
 ## Insertion de données dans la table recipes
 
 INSERT INTO recipes (title,slug,content,duration,online,createsAt) VALUES ('Poulet au curry' , 'poulet-au-curry', 'Contenu de test du poulet au curry', 50,TRUE,1662708303 )
+
+## Récupération des données d'une table
+<a>
+https://youtu.be/YgyB6ZRbX9w?list=PLjwdMgw5TTLXXpRlzDZq7d8iS6YXgnslt&t=313
+</a>
+
+### récupère toutes les données de la table recipes
+--  SELECT * FROM recipes
+
+### récupère les valeurs de la table recipes demandées dans la requête
+SELECT content,duration FROM recipes
+
+### récupère les valeur avec une condition grâce à WHERE 
+(ici toutes les recettes qui ont une durée égale à 30)
+SELECT * FROM recipes WHERE duration = 30
+(ici toutes les recettes qui ont une durée comprise entre 0 et 60)
+SELECT * FROM recipes WHERE duration BETWEEN 0 AND 60
+(ici toutes les recettes dont le slug est soupe OU qui ont une durée égale à 30)
+  SELECT * FROM recipes WHERE slug IN ('soupe') OR duration = 30
+
+
+
+
