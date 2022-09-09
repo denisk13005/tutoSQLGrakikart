@@ -35,8 +35,22 @@
 
 --on recrée la table avec cette fois ci la clé primaire id 
 
--- CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(150) , content TEXT, slug VARCHAR(50), duration SMALLINT, online BOOLEAN, createsAt DATETIME)
+-- CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(150) , content TEXT, slug VARCHAR(50), duration SMALLINT, online BOOLEAN, createdAt DATETIME)
 
 -- On crée un index unique sur une des valeurs de collonnes 
 
-CREATE UNIQUE INDEX idx_recipes_slug ON recipes (slug)
+-- CREATE UNIQUE INDEX idx_recipes_slug ON recipes (slug)
+
+--retrouver les index unique dans une table uniquement sur sqlite avec PRAGMA
+-- PRAGMA index_list(recipes)
+
+-- valeur null
+-- on drop la table pour l'exemple
+-- DROP TABLE recipes
+--ici on aura le slug avec une valeur null
+-- INSERT INTO recipes (title,content,duration,online, createdAt) VALUES ('test', 'test',50,TRUE,1662708303)
+
+-- on ne le veut pas du coup on va rajouter des contraintes
+
+-- CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(150) , content TEXT NOT NULL, slug VARCHAR(50) NOT NULL UNIQUE, duration SMALLINT, online BOOLEAN, createdAt DATETIME)
+

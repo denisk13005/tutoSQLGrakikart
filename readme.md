@@ -67,5 +67,18 @@ CREATE UNIQUE INDEX idx_recipes_slug ON recipes (slug)
 
 Cela nous empêchera d'avoir 2 slug(url) identiques dans la table recipes
 
+## Valeur NULL
+on drop la table pour l'exemple
+DROP TABLE recipes
+--ici on aura le slug avec une valeur null
+INSERT INTO recipes (title,content,duration,online, createdAt) VALUES ('test', 'test',50,TRUE,1662708303)
+
+-- on ne le veut pas du coup on va rajouter des contraintes
+
+CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(150) , content TEXT NOT NULL, slug VARCHAR(50) NOT NULL UNIQUE, duration SMALLINT, online BOOLEAN, createdAt DATETIME)
+
+ainsi on sera obligé de renseigner le title et le slug , le slug devra en plus être unique
 
 
+
+ 
