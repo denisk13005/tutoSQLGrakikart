@@ -82,6 +82,42 @@ CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(150) ,
 
 ainsi on sera obligé de renseigner le title et le slug , le slug devra en plus être unique
 
+## valeur par defaut
+On renseigne une valeur par defaut de 10 mn a duration :
+CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT, title VARCHAR(150) , content TEXT NOT NULL, slug VARCHAR(50) NOT NULL UNIQUE, duration SMALLINT DEFAULT 10, online BOOLEAN, createdAt DATETIME)
+  
+## clés étrangères et jointures 
+-- PRAGMA foreign_keys = ON; -- uniquement sur sqlite pour activer la contrainte 
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS recipes;
 
+CREATE TABLE IF NOT EXISTS categories (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, title VARCHAR(180) NOT NULL, description TEXT );
+
+INSERT INTO categories (title,description)
+VALUES ('Plat','desc'),('Dessert','desc');
+
+CREATE TABLE recipes (
+  id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+  title VARCHAR(250) NOT NULL,
+  slug VARCHAR(250) NOT NULL UNIQUE,
+  content TEXT,
+  category_id INTEGER, -- lie la recette a une categorie 
+  FOREIGN KEY (category_id) REFERENCES categories (id) -- vérifie si la catégorie avec laquelle on veut lié la recette existe
+);
+-- on insère des valeurs dans la table recipes
+INSERT INTO recipes (title,slug,category_id)
+VALUES ('Crême anglaise', 'creme-anglaise',2),
+      ('Soupe','soupe',1),
+      ('Salade de fruits','salade-de-fruit',2);
+
+--on peut maintenant sélectioner faire se rejoindre 2 tables on utilise des alias pour simplifier l'écriture 
+SELECT r.id, r.title, c.title AS   category FROM recipes r JOIN 
+categories c ON r.category_id = c.id
+;
+
+-- si on met LEFT JOIN renverra tous les éléments même ceux qui n'ont pas de gategory_id défini
+
+on peut spécifier une recherche ici une commande qui a pour username léo et comme id 4
+ SELECT * FROM commandes c  JOIN users u ON c.user_id = u.id WHERE u.name='léo' AND c.id=4;
 
  
