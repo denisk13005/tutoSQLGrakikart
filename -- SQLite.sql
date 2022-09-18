@@ -109,3 +109,66 @@
 
 
 -- SELECT * FROM commandes c  JOIN users u ON c.user_id = u.id WHERE u.name='léo' AND c.id=4;
+
+
+---------------------------Réalisation du mld --------------------------
+PRAGMA foreign_key = ON;
+DROP TABLE IF EXISTS ingredients;
+DROP TABLE IF EXISTS categories;
+DROP TABLE IF EXISTS ingredients_recipes;
+DROP TABLE IF EXISTS categories_recipes;
+DROP TABLE IF EXISTS recipes;
+DROP TABLE IF EXISTS users;
+
+CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , username VARCHAR(50) UNIQUE NOT NULL, email VARCHAR(50) UNIQUE NOT NULL);
+
+
+CREATE TABLE recipes (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , title VARCHAR(50) NOT NULL, slug VARCHAR(50) NOT NULL UNIQUE, date DATE, duration INTEGER, user_id INTEGER, FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE); -- on a rajouté on delete cascade qui permettra de supprimer les recettes lié à un utilisateur si le compte utilisateur est supprimer (d'où le cascade)
+
+CREATE TABLE categories (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , title VARCHAR(50));
+
+CREATE TABLE ingredients (id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL , name VARCHAR(100) NOT NULL);
+-- déclarer d'abord les lignes de la table avant les contraintes sinon erreur--!! ne pas mettre les commentaires dans les requêtes !!
+CREATE TABLE categories_recipes (recipe_id INTEGER NOT NULL,category_id INTEGER NOT NULL, FOREIGN KEY (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE,
+FOREIGN KEY (category_id) REFERENCES categories (id) ON DELETE CASCADE,
+PRIMARY KEY  (category_id,recipe_id),
+UNIQUE (category_id,recipe_id)
+);
+
+CREATE TABLE ingredients_recipes (
+unit VARCHAR(50),
+quantity INTEGER  , 
+recipe_id INTEGER NOT NULL, 
+ingredient_id INTEGER , 
+FOREIGN KEY (recipe_id) REFERENCES recipes (id) ON DELETE CASCADE, 
+FOREIGN KEY (ingredient_id) REFERENCES ingredients (id) ON DELETE CASCADE,
+PRIMARY KEY  (ingredient_id,recipe_id),
+UNIQUE (ingredient_id,recipe_id)
+);
+
+
+INSERT INTO users (username, email) VALUES ('John Doe','john@doe.fr');
+INSERT INTO categories (title) VALUES ('Plat'),('Dessert'),('Gateau');
+--on déclare des recettes qui seront liées à un user
+INSERT INTO recipes (title, slug, duration,user_id) VALUES ('Soupe','soupe',10,1),('Madeleine','madeleine',30,1);
+-- on déclare à quelle catégorie sont liés les recettes (par ex la soupe est dans la catégorie plat, et la madeleine dans la catégorie dessert mais aussi gateau)
+INSERT INTO categories_recipes (recipe_id,category_id) VALUES (1,1),(2,2),(2,3);
+-- on déclare des ingrédients que l'on va utiliser pour construire une recette (par ex ici la recette d'une madeleine)
+INSERT INTO ingredients (name) VALUES ('Sucre'),('Farine'),('Levure chimique'),('Beurre'),('Lait'),('Oeuf');
+-- on précise la quantité et l'unité de chaque ingrédient pour construire la recette (ici madeleine)
+INSERT INTO ingredients_recipes (recipe_id,ingredient_id,quantity,unit) VALUES 
+(2,1,150,'g'),
+(2,2,200,'g'),
+(2,3,8,'g'),
+(2,4,100,'g'),
+(2,5,50,'g'),
+(2,6,3,NULL);
+
+-- SELECT * 
+-- FROM ingredients_recipes ir
+-- JOIN ingredients i ON ir.recipe_id = i.id
+-- JOIN 
+
+
+
+
